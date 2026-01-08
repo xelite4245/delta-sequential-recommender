@@ -1,0 +1,21 @@
+# Core Data Science & ML
+pandas>=1.3.0
+numpy>=1.21.0
+scikit-learn>=1.0.0
+xgboost>=1.5.0  # Optional for XGBoost models, but recommended
+
+# GUI (for future CLI/GUI features)
+tkinter  # Usually bundled with Python; included for completeness
+
+# Development & Testing
+joblib>=1.1.0  # Model serialization
+pytest>=7.0.0  # Testing framework
+
+# Visualization (for notebooks)
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Jupyter support (for notebooks)
+jupyter>=1.0.0
+ipython>=7.0.0
+

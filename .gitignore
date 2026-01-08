@@ -1,0 +1,39 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Logs and outputs
+*.log
+output.txt
+
+# Data artifacts (keep raw/processed tracked manually)
+data/processed/*.pkl
+users/*/models/*.pkl
+
+# Coverage / test
+.pytest_cache/
+.coverage*
+htmlcov/
+
+# Build/dist
+build/
+dist/
+*.egg-info/
+
