@@ -57,20 +57,25 @@ def login_screen() -> Tuple[str, str, int]:
 
 def compound_menu() -> str:
     """Select which compound to log"""
-    print_header("Which lift would you like to log?")
+    print_header("Main Menu")
     
-    print("\n1. Squat")
+    print("\n📋 Log Session:")
+    print("1. Squat")
     print("2. Bench Press")
     print("3. Lat Pulldown")
     print("4. Seated Row")
-    print("5. Exit")
+    print("\n📊 Other:")
+    print("5. View Progression Plots")
+    print("6. Exit")
     
     while True:
-        choice = input("\nSelect (1-5): ").strip()
-        if choice in COMPOUNDS or choice == "5":
-            if choice == "5":
-                return None
+        choice = input("\nSelect (1-6): ").strip()
+        if choice in ["1", "2", "3", "4"]:
             return COMPOUNDS[choice]
+        elif choice == "5":
+            return "view_plots"
+        elif choice == "6":
+            return None
         print("Invalid selection. Try again.")
 
 def log_session_menu(compound: str) -> Tuple[float, int, float, str]:
@@ -186,3 +191,24 @@ def success_message(message: str):
     """Display success message"""
     print(f"\n✓ {message}")
     input("Press Enter to continue...")
+
+def plots_menu() -> str:
+    """
+    Display plots viewing menu
+    Returns: compound name, or None to go back
+    """
+    print_header("View Progression Plots")
+    
+    print("\n1. Squat")
+    print("2. Bench Press")
+    print("3. Lat Pulldown")
+    print("4. Seated Row")
+    print("5. Go Back")
+    
+    while True:
+        choice = input("\nSelect (1-5): ").strip()
+        if choice in COMPOUNDS or choice == "5":
+            if choice == "5":
+                return None
+            return COMPOUNDS[choice]
+        print("Invalid selection. Try again.")

@@ -8,6 +8,7 @@ repo_root = Path(__file__).parent
 sys.path.insert(0, str(repo_root))
 
 from src import auth, ui, session_logger, recommendation_engine, model_quality
+from src.plot_generator import generate_and_save_plots, open_plot
 
 def initialize_databases():
     """Initialize auth database on startup"""
@@ -45,6 +46,22 @@ def main():
                 
                 if compound is None:  # Exit
                     break
+                
+                # Check if user wants to view plots instead
+                if compound == "view_plots":
+                    # Plots menu
+                    selected_compound = ui.plots_menu()
+                    if selected_compound is not None:
+                        plot_path = Path(user_data_path) / "plots" / f"{selected_compound}_progression.png"
+                        if plot_path.exists():
+                            print(f"\n📊 Opening {selected_compound} progression plot...")
+                            if open_plot(plot_path):
+                                print("✓ Plot opened in default viewer")
+                            else:
+                                ui.error_message(f"Could not open plot at {plot_path}")
+                        else:
+                            ui.error_message(f"No plot found yet. Log a {selected_compound} session first.")
+                    continue
                 
                 # Compute accuracy for any pending predictions from previous sessions
                 session_logger.compute_accuracy_for_pending_predictions(user_id, user_data_path)
@@ -113,6 +130,14 @@ def main():
                         reason='Log your first session!',
                         session_count=1
                     )
+                
+                # REGENERATE PLOTS FOR THIS COMPOUND (session just ended)
+                print("\n📊 Updating progression plot...")
+                plot_path = generate_and_save_plots(user_data_path, compound)
+                if plot_path:
+                    print(f"✓ Plot saved to {plot_path}")
+                else:
+                    print("⚠ Could not generate plot")
                 
                 # Ask if user wants to log another
                 if ui.continue_menu() == 'n':

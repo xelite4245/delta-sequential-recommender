@@ -1,0 +1,46 @@
+{
+  "scaling_factors": {
+    "squat": 1.0,
+    "bench_press": 1.0,
+    "lat_pulldown": 1.0,
+    "seated_row": 1.0
+  },
+  "baseline_offsets": {
+    "squat": 0.0,
+    "bench_press": 0.0,
+    "lat_pulldown": 0.0,
+    "seated_row": 0.0
+  },
+  "trend_modifiers": {
+    "squat": {
+      "trend": 0.0
+    },
+    "bench_press": {
+      "trend": 0.0
+    },
+    "lat_pulldown": {
+      "trend": 0.0
+    },
+    "seated_row": {
+      "trend": 0.0
+    }
+  },
+  "calibration_meta": {
+    "squat": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    },
+    "bench_press": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    },
+    "lat_pulldown": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    },
+    "seated_row": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    }
+  }
+}
