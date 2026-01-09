@@ -1,0 +1,2 @@
+weight,reps,date,exercise_name,exercise_normalized,workout_name,workout_name_clean,rpe,set_order,set_volume,effective_load,max_weight_so_far,percent_of_max,cycle_number,weeks_in_cycle,cycle_weight_trend,is_deload
+60.0,12,2026-06-16,Barbell Squat,squat,Leg Day,legs,8.0,1,720.0,48.0,75.0,80.0,25,4,15.0,0
