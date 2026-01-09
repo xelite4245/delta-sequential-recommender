@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # Virtual environments
 .venv/
@@ -31,6 +32,17 @@ users/*/models/*.pkl
 .pytest_cache/
 .coverage*
 htmlcov/
+
+# Test outputs and experimental files
+tests/test_*.py
+tests/tune_*.py
+tests/plot_*.py
+tests/transfer_*.py
+*.png
+*.jpg
+*.jpeg
+data_plots/*.png
+data_plots/*.jpg
 
 # Build/dist
 build/
