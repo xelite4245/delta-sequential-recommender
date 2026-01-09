@@ -25,7 +25,7 @@ def add_periodization_features(df: pd.DataFrame) -> pd.DataFrame:
     Detect training cycles and add phase features.
     
     Features:
-    - is_deload: weight drop > 30 lbs (recovery week marker)
+    - is_deload: weight drop >= 15% (recovery week marker, scale-invariant)
     - cycle_number: cumulative deload count
     - weeks_in_cycle: sessions since last deload
     - max_weight_so_far: expanding max weight
@@ -35,8 +35,11 @@ def add_periodization_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df = df.sort_values('date').reset_index(drop=True)
     
-    # Detect deloads (big drops in weight)
-    df['is_deload'] = (df['weight'].shift(1) - df['weight']) > 30
+    # Detect deloads (percentage-based drop, scale-invariant)
+    # 15% drop = deload marker (works for 50 lb beginners and 300 lb lifters)
+    prev_weight = df['weight'].shift(1)
+    pct_change = (prev_weight - df['weight']) / prev_weight
+    df['is_deload'] = pct_change >= 0.15
     
     # Calculate cycle number (increments at each deload)
     df['cycle_number'] = df['is_deload'].cumsum()

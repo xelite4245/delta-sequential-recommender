@@ -1,50 +1,213 @@
-# Byte-compiled / cache
+################################################################################
+# PYTHON
+################################################################################
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyc
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
 # Virtual environments
 .venv/
+.venv
 venv/
+venv
 env/
+env
+ENV/
+ENV
+.env
+.env.*
 
-# Jupyter checkpoints
+# Jupyter / IPython
 .ipynb_checkpoints/
+*.ipynb_checkpoints
 
-# OS files
-.DS_Store
-Thumbs.db
-
-# Editor/IDE
-.vscode/
+# PyCharm
 .idea/
+*.iml
+*.iws
+*.ipr
 
-# Logs and outputs
-*.log
-output.txt
+# VS Code
+.vscode/
+*.code-workspace
 
-# Data artifacts (keep raw/processed tracked manually)
-data/processed/*.pkl
-users/*/models/*.pkl
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
 
-# Coverage / test
+################################################################################
+# TESTING & COVERAGE
+################################################################################
 .pytest_cache/
-.coverage*
+.pytest_cache
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
 htmlcov/
+.tox/
+.hypothesis/
 
-# Test outputs and experimental files
-tests/test_*.py
-tests/tune_*.py
-tests/plot_*.py
-tests/transfer_*.py
+################################################################################
+# IDE & EDITOR
+################################################################################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+################################################################################
+# LOGS & OUTPUT
+################################################################################
+*.log
+*.log.*
+logs/
+output.txt
+output/
+*.out
+
+################################################################################
+# DATA & MODELS (Keep repo clean, but versioned separately)
+################################################################################
+# Model files (too large)
+*.pkl
+*.pickle
+models/compounds/*.pkl
+data/models/*.pkl
+users/*/trained_models/*.pkl
+
+# Large data files
+*.csv.bak
+*.csv.old
+data/processed/*.pkl
+data/processed/*.joblib
+
+# Generated visualizations (regenerate as needed)
 *.png
 *.jpg
 *.jpeg
-data_plots/*.png
-data_plots/*.jpg
+*.gif
+*.pdf
+*.svg
+data_plots/
+plots/
+*.pdf
 
-# Build/dist
+################################################################################
+# SQLITE DATABASES (User data sensitive - exclude from repo)
+################################################################################
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+data/**/*.db
+data/auth/*.db
+
+# But DO track the schema/structure files
+!data/auth/README.md
+!data/auth/.gitkeep
+
+################################################################################
+# DEVELOPMENT & TEMPORARY
+################################################################################
+.local/
+.tmp/
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+*~
+
+# Test outputs
+test_results/
+test_output/
+.test_cache/
+
+# IDE temporary files
+*.sublime-project
+*.sublime-workspace
+*.project
+*.pydevproject
+
+# OS temporary files
+$RECYCLE.BIN/
+.TemporaryItems/
+.VolumeIcon.icns
+
+################################################################################
+# ENVIRONMENT
+################################################################################
+.env
+.env.local
+.env.*.local
+.envrc
+
+################################################################################
+# PACKAGE MANAGERS
+################################################################################
+Pipfile.lock
+poetry.lock
+pip-log.txt
+pip-delete-this-directory.txt
+
+################################################################################
+# DISTRIBUTION
+################################################################################
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+################################################################################
+# DOCUMENTATION
+################################################################################
+site/
+docs/_build/
+docs/.doctrees/
 build/
 dist/
 *.egg-info/

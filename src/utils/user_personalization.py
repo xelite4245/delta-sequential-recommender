@@ -33,6 +33,7 @@ class UserPersonalization:
         scaling_factors: Optional[Dict[str, float]] = None,
         baseline_offsets: Optional[Dict[str, float]] = None,
         trend_modifiers: Optional[Dict[str, float]] = None,
+        calibration_meta: Optional[Dict[str, Dict[str, float]]] = None,
     ):
         """
         Initialize user personalization.
@@ -47,6 +48,7 @@ class UserPersonalization:
         self.scaling_factors = scaling_factors or self._default_dict(1.0)
         self.baseline_offsets = baseline_offsets or self._default_dict(0.0)
         self.trend_modifiers = trend_modifiers or self._default_dict(1.0)
+        self.calibration_meta = calibration_meta or self._default_meta()
     
     @staticmethod
     def _default_dict(value: float) -> Dict[str, float]:
@@ -57,12 +59,23 @@ class UserPersonalization:
             "lat_pulldown": value,
             "seated_row": value,
         }
+
+    @staticmethod
+    def _default_meta() -> Dict[str, Dict[str, float]]:
+        """Per-compound calibration bookkeeping."""
+        template = {"last_calibrated_size": 0, "runs": 0}
+        return {
+            "squat": template.copy(),
+            "bench_press": template.copy(),
+            "lat_pulldown": template.copy(),
+            "seated_row": template.copy(),
+        }
     
     def adjust_prediction(
         self,
         compound: str,
-        raw_prediction: float
-    ) -> float:
+        raw_prediction: float | np.ndarray
+    ) -> float | np.ndarray:
         """
         Apply user personalization to a raw model prediction.
         
@@ -78,8 +91,11 @@ class UserPersonalization:
         """
         scaling = self.scaling_factors.get(compound, 1.0)
         offset = self.baseline_offsets.get(compound, 0.0)
-        
-        adjusted = (raw_prediction * scaling) + offset
+
+        values = np.asarray(raw_prediction, dtype=float)
+        adjusted = (values * scaling) + offset
+        if adjusted.ndim == 0:
+            return float(adjusted)
         return adjusted
     
     def learn_from_residuals(
@@ -109,6 +125,35 @@ class UserPersonalization:
         self.baseline_offsets[compound] = (
             old_offset + (mean_residual * update_rate)
         )
+
+    def calibrate_affine(
+        self,
+        compound: str,
+        y_true: np.ndarray,
+        y_pred: np.ndarray,
+        min_samples: int = 8,
+        gain_bounds: tuple = (0.6, 1.4),
+    ) -> Optional[tuple]:
+        """
+        Fit an affine correction: y_true ≈ a * y_pred + b.
+        Updates scaling_factors (a) and baseline_offsets (b).
+        Clamps gain to avoid extreme swings on noisy small windows.
+        
+        Returns (a, b) if updated, else None.
+        """
+        if len(y_true) < min_samples or len(y_pred) < min_samples:
+            return None
+        # Simple linear fit
+        a, b = np.polyfit(y_pred, y_true, 1)
+        a = float(np.clip(a, gain_bounds[0], gain_bounds[1]))
+        b = float(b)
+        self.scaling_factors[compound] = a
+        self.baseline_offsets[compound] = b
+        meta = self.calibration_meta.get(compound, {"last_calibrated_size": 0, "runs": 0})
+        meta["last_calibrated_size"] = len(y_true)
+        meta["runs"] = meta.get("runs", 0) + 1
+        self.calibration_meta[compound] = meta
+        return a, b
     
     def to_dict(self) -> dict:
         """Serialize to dict for JSON storage."""
@@ -117,6 +162,7 @@ class UserPersonalization:
             "scaling_factors": self.scaling_factors,
             "baseline_offsets": self.baseline_offsets,
             "trend_modifiers": self.trend_modifiers,
+            "calibration_meta": self.calibration_meta,
         }
     
     @classmethod
@@ -127,6 +173,7 @@ class UserPersonalization:
             scaling_factors=data.get("scaling_factors"),
             baseline_offsets=data.get("baseline_offsets"),
             trend_modifiers=data.get("trend_modifiers"),
+            calibration_meta=data.get("calibration_meta"),
         )
     
     def save(self, path: Path) -> None:

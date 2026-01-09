@@ -1,0 +1,39 @@
+{
+  "user_id": "User2",
+  "scaling_factors": {
+    "squat": 0.6,
+    "bench_press": 1.0,
+    "lat_pulldown": 1.0,
+    "seated_row": 1.0
+  },
+  "baseline_offsets": {
+    "squat": 1.2298317124218126,
+    "bench_press": 0.0,
+    "lat_pulldown": 0.0,
+    "seated_row": 0.0
+  },
+  "trend_modifiers": {
+    "squat": 1.0,
+    "bench_press": 1.0,
+    "lat_pulldown": 1.0,
+    "seated_row": 1.0
+  },
+  "calibration_meta": {
+    "squat": {
+      "last_calibrated_size": 32,
+      "runs": 1
+    },
+    "bench_press": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    },
+    "lat_pulldown": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    },
+    "seated_row": {
+      "last_calibrated_size": 0,
+      "runs": 0
+    }
+  }
+}
