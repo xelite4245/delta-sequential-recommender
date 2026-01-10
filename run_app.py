@@ -10,6 +10,10 @@ sys.path.insert(0, str(repo_root))
 from src import auth, ui, session_logger, recommendation_engine, model_quality
 from src.plot_generator import generate_and_save_plots, open_plot
 
+
+
+
+
 def initialize_databases():
     """Initialize auth database on startup"""
     try:
@@ -18,8 +22,15 @@ def initialize_databases():
     except Exception as e:
         print(f"Warning: Could not initialize auth database: {e}")
 
+
+
+
+
+
+
 def main():
     """Main application loop"""
+
     initialize_databases()
     
     while True:
@@ -149,6 +160,11 @@ def main():
             ui.error_message(f"Unexpected error: {str(e)}")
             import traceback
             traceback.print_exc()
+
+
+
+
+
 
 if __name__ == "__main__":
     main()

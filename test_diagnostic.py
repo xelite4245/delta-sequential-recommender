@@ -5,6 +5,10 @@ Sends menu inputs and captures output
 
 import subprocess
 import sys
+from pathlib import Path
+
+# Get repo root (parent of this file's directory)
+repo_root = Path(__file__).parent
 
 # Run the diagnostic with predefined inputs: test RFR, test LR, test XG, show results, exit
 inputs = "1\n2\n3\n4\n5\n"
@@ -15,13 +19,14 @@ proc = subprocess.Popen(
     stdout=subprocess.PIPE,
     stderr=subprocess.STDOUT,
     text=True,
-    cwd=r"c:\Users\rezas\GitHub\Personalized-Workout-Progression-System"
+    cwd=str(repo_root)
 )
 
 output, _ = proc.communicate(input=inputs, timeout=300)
 
 # Write to output file
-with open(r"c:\Users\rezas\GitHub\Personalized-Workout-Progression-System\output.txt", "w") as f:
+output_path = repo_root / "output.txt"
+with open(output_path, "w") as f:
     f.write(output)
 
 print("Output saved to output.txt")
