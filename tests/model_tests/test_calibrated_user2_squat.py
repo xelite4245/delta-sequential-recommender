@@ -13,13 +13,13 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 from models.compound_models import SquatProgressionModel, add_periodization_features
 from utils.user_personalization import UserPersonalization
 
 
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = Path(__file__).parent.parent.parent
 LEG_CSV = BASE_DIR / "data/processed/PPL_data/leg_workouts.csv"
 USER2_CSV = BASE_DIR / "data/baseline/User2_legs_squat_data.csv"
 

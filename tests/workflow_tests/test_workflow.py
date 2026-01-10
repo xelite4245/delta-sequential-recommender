@@ -5,7 +5,7 @@ from pathlib import Path
 import sqlite3
 import pandas as pd
 
-repo_root = Path(__file__).parent
+repo_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(repo_root))
 
 from src import auth, session_logger, model_quality

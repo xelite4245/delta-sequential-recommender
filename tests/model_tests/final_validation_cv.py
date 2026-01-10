@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 from copy import deepcopy
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 import pandas as pd
 import numpy as np
@@ -200,7 +200,7 @@ def evaluate_compound(
 
 
 if __name__ == "__main__":
-    ppl_dir = Path(__file__).parent.parent / "data" / "processed" / "PPL_data"
+    ppl_dir = Path(__file__).parent.parent.parent / "data" / "processed" / "PPL_data"
     
     print(f"\n{'#'*90}")
     print(f"# FINAL VALIDATION + CROSS-VALIDATION REPORT")

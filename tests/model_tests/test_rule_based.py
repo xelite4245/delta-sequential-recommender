@@ -6,7 +6,7 @@ import sys
 import math
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 from rule_based import rule_based_progression
 

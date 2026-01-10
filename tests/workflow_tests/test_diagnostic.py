@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 
 # Get repo root (parent of this file's directory)
-repo_root = Path(__file__).parent
+repo_root = Path(__file__).parent.parent.parent
 
 # Run the diagnostic with predefined inputs: test RFR, test LR, test XG, show results, exit
 inputs = "1\n2\n3\n4\n5\n"

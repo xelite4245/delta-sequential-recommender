@@ -2,7 +2,7 @@
 import sys
 from pathlib import Path
 
-repo_root = Path(__file__).parent
+repo_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(repo_root))
 
 from src.plot_generator import generate_and_save_plots

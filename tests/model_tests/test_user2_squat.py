@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 import pickle
 
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
 import pandas as pd
 import numpy as np
@@ -16,7 +16,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from models.compound_models import SquatProgressionModel, add_periodization_features
 
 
-BASE_DIR = Path(__file__).parent.parent
+BASE_DIR = Path(__file__).parent.parent.parent
 LEG_CSV = BASE_DIR / "data/processed/PPL_data/leg_workouts.csv"
 USER2_CSV = BASE_DIR / "data/baseline/User2_legs_squat_data.csv"
 MODEL_OUT = BASE_DIR / "users/Ayfs/trained_models/squat_model.pkl"
