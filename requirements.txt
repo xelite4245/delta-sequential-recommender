@@ -4,9 +4,6 @@ numpy>=1.21.0
 scikit-learn>=1.0.0
 xgboost>=1.5.0  # Optional for XGBoost models, but recommended
 
-# GUI (for future CLI/GUI features)
-tkinter  # Usually bundled with Python; included for completeness
-
 # Development & Testing
 joblib>=1.1.0  # Model serialization
 pytest>=7.0.0  # Testing framework

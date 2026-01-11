@@ -15,12 +15,45 @@ from src.plot_generator import generate_and_save_plots, open_plot
 
 
 def initialize_databases():
-    """Initialize auth database on startup"""
+    """Initialize auth and session_audit databases on startup"""
+    # Initialize auth database
     try:
         from data.auth.init_auth_db import init_auth_db
         init_auth_db()
     except Exception as e:
         print(f"Warning: Could not initialize auth database: {e}")
+    
+    # Initialize session_audit table
+    try:
+        import sqlite3
+        from pathlib import Path
+        
+        db_path = Path(__file__).parent / "data" / "user_data.db"
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS session_audit (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                compound TEXT NOT NULL,
+                weight REAL,
+                reps INTEGER,
+                rpe REAL,
+                deviation_reason TEXT,
+                prediction_source TEXT,
+                recommended_weight REAL,
+                actual_weight REAL,
+                accuracy_delta REAL,
+                prediction_status TEXT DEFAULT 'pending',
+                logged_at TIMESTAMP
+            )
+        """)
+        
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"Warning: Could not initialize session_audit table: {e}")
 
 
 
