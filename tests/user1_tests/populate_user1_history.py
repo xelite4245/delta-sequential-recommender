@@ -38,7 +38,13 @@ def populate_user1_history():
     try:
         # Load baseline data
         baseline_csv = repo_root / "data" / "baseline" / "strong_4krows_baseline_data.csv"
-        print(f"\n1. Loading baseline data from: {baseline_csv}")
+        # Print a repo-relative path to avoid exposing absolute user directories
+        try:
+            rel = baseline_csv.relative_to(repo_root)
+            display_path = rel.as_posix()
+        except Exception:
+            display_path = baseline_csv.name
+        print(f"\n1. Loading baseline data from: {display_path}")
         
         df = pd.read_csv(baseline_csv)
         print(f"   ✓ Loaded {len(df)} rows")

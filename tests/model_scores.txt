@@ -1,0 +1,83 @@
+================================================================================
+COMPREHENSIVE MODEL COMPARISON - SQUAT PROGRESSION
+================================================================================
+Loaded 3989 rows from baseline data
+Prepared squat data: 45 samples with 3 features
+
+================================================================================
+[TRAINING] RANDOM FOREST REGRESSOR
+================================================================================
+Status: Model trained successfully.
+
+Training Metrics:
+  R2 Score:  0.7647 (76%)
+  RMSE:      14.9469 lbs
+  MSE:       223.4113
+
+Cross-Validation (5-fold):
+  CV R2 Scores: ['30.05%', '-15.58%', '-53.05%', '-1.59%', '-149.84%']
+  Mean CV R2:   -0.3800 (-38%)
+  Std Dev:      0.6196
+
+================================================================================
+[TRAINING] LINEAR REGRESSION
+================================================================================
+Status: Model trained successfully.
+
+Training Metrics:
+  R2 Score:  0.1327 (13%)
+  RMSE:      28.6936 lbs
+  MSE:       823.3215
+
+Cross-Validation (5-fold):
+  CV R2 Scores: ['-3.68%', '-92.32%', '-39.26%', '-23.46%', '-108.59%']
+  Mean CV R2:   -0.5347 (-53%)
+  Std Dev:      0.4032
+
+================================================================================
+[TRAINING] XGBOOST REGRESSOR
+================================================================================
+Status: Model trained successfully.
+
+Training Metrics:
+  R2 Score:  0.9310 (93%)
+  RMSE:      8.0912 lbs
+  MSE:       65.4673
+
+Cross-Validation (5-fold):
+  CV R2 Scores: ['22.63%', '-154.39%', '-19.12%', '-466.90%', '-57.93%']
+  Mean CV R2:   -1.3514 (-135%)
+  Std Dev:      1.7593
+
+================================================================================
+MODEL COMPARISON SUMMARY
+================================================================================
+Dataset: Squat exercises from baseline
+Training Samples: 45
+Features: weight, reps, rpe
+Target: load_delta (weight change)
+
+Model Performance (sorted by Training R2):
+--------------------------------------------------------------------------------
+
+1. XGBoost Regressor
+   Training R2:       0.9310 (93%)
+   Training RMSE:     8.0912 lbs
+   CV Mean R2:        -1.3514 (-135%)
+   CV Std Dev:        1.7593
+
+2. Random Forest Regressor
+   Training R2:       0.7647 (76%)
+   Training RMSE:     14.9469 lbs
+   CV Mean R2:        -0.3800 (-38%)
+   CV Std Dev:        0.6196
+
+3. Linear Regression
+   Training R2:       0.1327 (13%)
+   Training RMSE:     28.6936 lbs
+   CV Mean R2:        -0.5347 (-53%)
+   CV Std Dev:        0.4032
+
+
+
+
