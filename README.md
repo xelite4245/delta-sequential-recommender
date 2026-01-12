@@ -4,11 +4,11 @@ Delta is a strength progression system that predicts next-session training loads
 
 ## Problem Statement
 
-Strength progression data is sparse, noisy, and highly individual. Most users log fewer than 50 sessions per compound, making standard ML models unreliable without aggressive regularization. Rule-based progressions lack personalization and adapt slowly to individual behavior. This project explores how to combine ML and deterministic logic under real-world data scarcity.
+Strength progression data is scattered, noisy, and highly individual. Most users log fewer than 50 sessions per compound, making standard ML models unreliable without aggressive regularization. Rule-based progressions lack personalization and adapt slowly to individual behavior. This project explores how to combine ML and deterministic logic under real-world data scarcity.
 
 ## Approach
 
-We built personalization on top of sparse user data:
+Built personalization on top of scattered user data:
 - **Train separate models per compound lift** (squat, bench, row, etc.) on ~11k cross-user historical sessions, capturing lift-specific progression patterns.
 - **Personalize via calibration**: adjust raw predictions to each user using their recent sessions (`adjusted = a × prediction + b`). The model learns individual pace within 8–10 logged sessions per compound.
 - **Validate aggressively**: use cross-validation before deployment. Treat negative or volatile CV scores as a hard stop—route predictions to deterministic logic instead of forcing ML output.
@@ -71,4 +71,4 @@ streamlit run app.py
 
 ---
 
-**For model evaluation details**, see [model_scores.txt](model_scores.txt).
+**For model evaluation details**, see [model_scores.txt](https://github.com/azizuddinuzair/delta-sequential-recommender/blob/main/tests/model_scores.txt).
