@@ -77,4 +77,4 @@ streamlit run app.py
 
 ---
 
-**For model evaluation details**, see [model_scores.txt](https://github.com/azizuddinuzair/delta-sequential-recommender/blob/main/tests/model_scores.txt).
+**For model evaluation details**, see [/tests/model_scores.txt](https://github.com/azizuddinuzair/delta-sequential-recommender/blob/main/tests/model_scores.txt).
