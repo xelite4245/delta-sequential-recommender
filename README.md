@@ -6,6 +6,12 @@ Delta is a strength progression system that predicts next-session training loads
 
 Strength progression data is scattered, noisy, and highly individual. Most users log fewer than 50 sessions per compound, making standard ML models unreliable without aggressive regularization. Rule-based progressions lack personalization and adapt slowly to individual behavior. This project explores how to combine ML and deterministic logic under real-world data scarcity.
 
+## Datasets
+- [Kaggle](https://www.kaggle.com/datasets/joep89/weightlifting): 721 Weight Training Workouts by Joe89
+- [Kaggle](https://www.kaggle.com/datasets/jollychappies/weight-training): Weight training by Daniel Suarez-Mash
+- [GitHub](https://github.com/kellyjadams/weightlifting-data): weightlifting-data by Kelly J Adams
+
+
 ## Approach
 
 Built personalization on top of scattered user data:
