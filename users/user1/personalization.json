@@ -1,0 +1,26 @@
+{
+  "scaling_factors": {
+    "squat": 1.0,
+    "bench_press": 1.0,
+    "lat_pulldown": 1.0,
+    "seated_row": 1.0
+  },
+  "baseline_offsets": {
+    "squat": 0.0,
+    "bench_press": 0.0,
+    "lat_pulldown": 0.0,
+    "seated_row": 0.0
+  },
+  "last_calibration_n": {
+    "squat": 0,
+    "bench_press": 0,
+    "lat_pulldown": 0,
+    "seated_row": 0
+  },
+  "calibration_runs": {
+    "squat": 0,
+    "bench_press": 0,
+    "lat_pulldown": 0,
+    "seated_row": 0
+  }
+}

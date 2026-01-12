@@ -11,6 +11,7 @@ from src.model_quality import is_model_enabled, update_model_quality
 class ModelCache:
     """Thread-safe global model cache"""
     _models = {}
+    _metadata = {}  # Store accuracy and other metadata
     _lock = threading.Lock()
     
     @classmethod
@@ -28,11 +29,15 @@ class ModelCache:
                     try:
                         model_obj = joblib.load(path)
                         
-                        # Extract pipeline if saved via BaseModel.save()
+                        # Extract pipeline and metadata if saved as dict
                         if isinstance(model_obj, dict):
                             cls._models[compound] = model_obj.get('pipeline')
+                            cls._metadata[compound] = {
+                                'accuracy': model_obj.get('accuracy', 0)
+                            }
                         else:
                             cls._models[compound] = model_obj
+                            cls._metadata[compound] = {'accuracy': 0}
                     except Exception as e:
                         print(f"Error loading model for {compound}: {e}")
                         return None
@@ -40,9 +45,16 @@ class ModelCache:
         return cls._models[compound]
     
     @classmethod
+    def get_accuracy(cls, compound):
+        """Get model accuracy percentage (0-100)"""
+        cls.get_model(compound)  # Ensure model is loaded
+        return cls._metadata.get(compound, {}).get('accuracy', 0)
+    
+    @classmethod
     def clear(cls):
         """Clear cache (only on app exit or model retraining)"""
         cls._models.clear()
+        cls._metadata.clear()
 
 def get_recommendation(
     user_id: int,
@@ -64,8 +76,11 @@ def get_recommendation(
     if session_count == 0:
         return None, 'insufficient_data', 'No training history yet'
     
-    # Case 2: 1-15 sessions → Always rule-based
-    if session_count <= 15:
+    # Case 2: Check if model is explicitly enabled (can bypass 15-session limit)
+    model_enabled = is_model_enabled(user_id, compound)
+    
+    # Case 3: If model NOT enabled and <15 sessions → Always rule-based
+    if session_count <= 15 and not model_enabled:
         sugg = rule_based_progression(
             last_weight=last_weight,
             last_reps=last_reps,
@@ -73,7 +88,7 @@ def get_recommendation(
         )
         return sugg.suggested_weight, 'rule_based', sugg.reason
     
-    # Case 3: 15+ sessions → Check if model is enabled
+    # Case 4: Model is enabled OR 15+ sessions → Try to use ML
     # First, refresh calibration
     try:
         from src.personalized_prediction import maybe_calibrate_affine, CalibrationConfig
@@ -119,9 +134,7 @@ def get_recommendation(
     except Exception as e:
         print(f"Warning: Could not update model quality: {e}")
     
-    # Check if model is enabled
-    model_enabled = is_model_enabled(user_id, compound)
-    
+    # Try to use ML model (since we passed the checks above)
     if model_enabled:
         # Try to use ML model
         try:
@@ -153,8 +166,18 @@ def get_recommendation(
             # Prepare test row (copy last row and adjust)
             test_row = history.iloc[-1:].copy()
             test_row['reps'] = last_reps
-            test_row['rpe'] = last_rpe
+            # Ensure RPE is present; fallback to a neutral value if missing
+            try:
+                import numpy as np
+                if pd.isna(last_rpe):
+                    test_row['rpe'] = 8.0
+                else:
+                    test_row['rpe'] = last_rpe
+            except Exception:
+                test_row['rpe'] = 8.0
             
+            # Drop target column if present in history
+            test_row = test_row.drop(columns=['load_delta'], errors='ignore')
             # Get raw prediction
             raw_pred = float(pipe.predict(test_row)[0])
             

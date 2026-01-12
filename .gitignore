@@ -142,11 +142,17 @@ data/auth/*.db
 ################################################################################
 # USER DATA (Privacy & Security - exclude from repo)
 ################################################################################
-# Ignore all user directories by default
-users/
-# Exception: Keep User2 test/demo fixture for testing and CI/CD
+# Ignore all user directories by default, EXCEPT demo_user, user1, and User2
+users/*
+!users/User2
 !users/User2/
 !users/User2/**
+!users/user1
+!users/user1/
+!users/user1/**
+!users/demo_user
+!users/demo_user/
+!users/demo_user/**
 
 ################################################################################
 # DEVELOPMENT & TEMPORARY
@@ -219,5 +225,7 @@ docs/_build/
 docs/.doctrees/
 build/
 dist/
+docs
 *.egg-info/
 repo_documentation/
+
