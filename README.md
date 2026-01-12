@@ -79,11 +79,6 @@ Access at `http://localhost:8501`
 - **Fixed compound set** (squat, bench press, lat pulldown, seated row); requires manual feature engineering and retraining for new lifts.
 - **Demo uses historical baseline data**, not live user-generated sessions; real-world performance depends on data quality and consistency.
 
-## Future Work
-
-- Incorporate Bayesian updating to improve early-session personalization (first 5–10 sessions).
-- Detect and model periodization cycles (deload detection, rep-range shifts).
-- Expand to isolation exercises with shared feature representations.
 
 ---
 
