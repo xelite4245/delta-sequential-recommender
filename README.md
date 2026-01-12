@@ -47,10 +47,20 @@ Tree-based models (XGBoost, Random Forest) were evaluated on 30–50 session val
 - **Simulate new sessions**: Add weight/reps and observe how previous predictions performed.
 - **Show calibration coefficients** (before/after adjustments for each lift).
 
-Run locally:
+**Deployed On Streamlit Community Cloud**
+Visit at: [Personalized Load Recommendations via Effective Load Delta]()
+
+**Run locally:**
 ```bash
 streamlit run app.py
 ```
+
+**Run with Docker:**
+```bash
+docker compose up --build
+```
+Access at `http://localhost:8501`
+
 
 ## Project Structure
 
