@@ -115,7 +115,6 @@ data/processed/*.pkl
 data/processed/*.joblib
 
 # Generated visualizations (regenerate as needed)
-*.png
 *.jpg
 *.jpeg
 *.gif
