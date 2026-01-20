@@ -6,6 +6,12 @@ Delta is a strength progression system that predicts next-session training loads
 
 Strength progression data is scattered, noisy, and highly individual. Most users log fewer than 50 sessions per compound, making standard ML models unreliable without aggressive regularization. Rule-based progressions lack personalization and adapt slowly to individual behavior. This project explores how to combine ML and deterministic logic under real-world data scarcity.
 
+## Datasets
+- [Kaggle](https://www.kaggle.com/datasets/joep89/weightlifting): 721 Weight Training Workouts by Joe89
+- [Kaggle](https://www.kaggle.com/datasets/jollychappies/weight-training): Weight training by Daniel Suarez-Mash
+- [GitHub](https://github.com/kellyjadams/weightlifting-data): weightlifting-data by Kelly J Adams
+
+
 ## Approach
 
 Built personalization on top of scattered user data:
@@ -41,10 +47,20 @@ Tree-based models (XGBoost, Random Forest) were evaluated on 30–50 session val
 - **Simulate new sessions**: Add weight/reps and observe how previous predictions performed.
 - **Show calibration coefficients** (before/after adjustments for each lift).
 
-Run locally:
+**Deployed On Streamlit Community Cloud**
+Visit at: [Personalized Load Recommendations via Effective Load Delta](https://delta-sequential-recommender-9stgzpqzfmbekqz26hsltq.streamlit.app/)
+
+**Run locally:**
 ```bash
 streamlit run app.py
 ```
+
+**Run with Docker:**
+```bash
+docker compose up --build
+```
+Access at `http://localhost:8501`
+
 
 ## Project Structure
 
@@ -63,12 +79,7 @@ streamlit run app.py
 - **Fixed compound set** (squat, bench press, lat pulldown, seated row); requires manual feature engineering and retraining for new lifts.
 - **Demo uses historical baseline data**, not live user-generated sessions; real-world performance depends on data quality and consistency.
 
-## Future Work
-
-- Incorporate Bayesian updating to improve early-session personalization (first 5–10 sessions).
-- Detect and model periodization cycles (deload detection, rep-range shifts).
-- Expand to isolation exercises with shared feature representations.
 
 ---
 
-**For model evaluation details**, see [model_scores.txt](https://github.com/azizuddinuzair/delta-sequential-recommender/blob/main/tests/model_scores.txt).
+**For model evaluation details**, see [/tests/model_scores.txt](https://github.com/azizuddinuzair/delta-sequential-recommender/blob/main/tests/model_scores.txt).
